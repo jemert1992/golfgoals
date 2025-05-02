@@ -66,7 +66,7 @@ export async function GET(request: NextRequest) {
 
     // --- Fetch Instagram Videos --- (Using Hashtag Scraper)
     console.log(`Fetching Instagram videos for category: ${category}`);
-    const instagramHashtags = category === 'golf' ? ['golfreels', 'golftips'] : ['goal', 'soccergoals', 'nhlgoals'];
+    const instagramHashtags = category === 'golf' ? ['viral golf'] : ['viral goals nhl soccer futbol'];
     const instagramInput = {
         "hashtags": instagramHashtags,
         "resultsLimit": 10 // Limit results per hashtag
@@ -102,7 +102,7 @@ function mapTikTokData(items: any[]): VideoItem[] {
     platform: 'tiktok',
     likes: item.stats?.diggCount,
     views: item.stats?.playCount,
-  })).filter(video => video.item_url && video.views && video.views > 1000000); // Ensure there's a URL and views > 1M
+  })).filter(video => video.item_url && video.views && video.views > 250000); // Ensure there's a URL and views > 250k
 }
 
 // Helper function to map Instagram data (adjust based on actual actor output)
@@ -118,8 +118,8 @@ function mapInstagramData(items: any[]): VideoItem[] {
         likes: item.likesCount,
         views: item.videoViewCount, // May not always be present
     }))
-    // Filter for videos with a URL, thumbnail, and over 1M views
-    .filter(video => video.item_url && video.thumbnail_url && video.views && video.views > 1000000);
+    // Filter for videos with a URL, thumbnail, and over 250k views
+    .filter(video => video.item_url && video.thumbnail_url && video.views && video.views > 250000);
 }
 
 // Mock data function (used if API token is missing)
