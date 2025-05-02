@@ -102,7 +102,7 @@ function mapTikTokData(items: any[]): VideoItem[] {
     platform: 'tiktok',
     likes: item.stats?.diggCount,
     views: item.stats?.playCount,
-  })).filter(video => video.item_url); // Ensure there's a URL
+  })).filter(video => video.item_url && video.views && video.views > 1000000); // Ensure there's a URL and views > 1M
 }
 
 // Helper function to map Instagram data (adjust based on actual actor output)
@@ -118,8 +118,8 @@ function mapInstagramData(items: any[]): VideoItem[] {
         likes: item.likesCount,
         views: item.videoViewCount, // May not always be present
     }))
-    // Corrected Filter: Only use the 'video' object passed to the filter callback
-    .filter(video => video.item_url && video.thumbnail_url); // Ensure it has a URL and thumbnail
+    // Filter for videos with a URL, thumbnail, and over 1M views
+    .filter(video => video.item_url && video.thumbnail_url && video.views && video.views > 1000000);
 }
 
 // Mock data function (used if API token is missing)
